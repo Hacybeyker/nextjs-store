@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 
@@ -28,10 +29,18 @@ export default function RootLayout({
         <header>
           <nav>
             <ul>
-              <li>Home</li>
-              <li>Store</li>
-              <li>About</li>
-              <li>Contact</li>
+              <Link href="/">
+                <li>Home</li>
+              </Link>
+              <Link href="/store">
+                <li>Store</li>
+              </Link>
+              <Link href="/about">
+                <li>About</li>
+              </Link>
+              <Link href="/contact">
+                <li>Contact</li>
+              </Link>
             </ul>
           </nav>
         </header>

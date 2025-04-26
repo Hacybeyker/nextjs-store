@@ -4,7 +4,14 @@ import Image from 'next/image';
 export const Description = () => {
   return (
     <section className={styles.Description}>
-      <Image src="/images/description.jpeg" alt="products marketplace" width={500} height={300} />
+      <Image
+        src="/images/description.jpeg"
+        alt="products marketplace"
+        width={500}
+        height={300}
+        priority={true}
+        quality={100}
+      />
       <div className={styles.Description__text}>
         <h2>Bring the future today</h2>
         <p>

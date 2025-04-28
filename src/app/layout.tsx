@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import { Montserrat } from 'next/font/google';
+import { Hero } from '@/components/home/Hero';
+import { Description } from '@/components/home/Description';
 import { Header } from '@/components/shared/Header';
 import { Footer } from '@/components/shared/Footer';
 import '@/sass/globals.sass';
@@ -20,6 +22,8 @@ export default function RootLayout({
     <html lang="en">
       <body className={montserrat.className}>
         <Header />
+        <Hero />
+        <Description />
         {children}
         <Footer />
       </body>

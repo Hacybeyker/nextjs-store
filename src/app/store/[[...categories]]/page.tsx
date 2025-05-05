@@ -1,3 +1,6 @@
+import { getProducts } from '@/services/shopify';
+import { ProductsWrapper } from '@/components/Store/ProductsWrapper';
+
 interface StoreCategoryPageProps {
   params: {
     categories?: string[];
@@ -6,6 +9,7 @@ interface StoreCategoryPageProps {
 }
 
 async function StoreCategoryPage(props: StoreCategoryPageProps) {
+  const products = await getProducts();
   const { categories = [] } = await props.params;
   const searchParams = await Promise.resolve(props.searchParams);
 
@@ -20,6 +24,7 @@ async function StoreCategoryPage(props: StoreCategoryPageProps) {
         <h3>Parámetros de búsqueda:</h3>
         <pre>{JSON.stringify(searchParams, null, 2)}</pre>
       </div>
+      <ProductsWrapper products={products} />
     </div>
   );
 }

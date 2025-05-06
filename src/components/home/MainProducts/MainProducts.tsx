@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import styles from './MainProducts.module.sass';
-import { getProducts } from '@/services/shopify/products';
+import { getMainProducts } from '@/services/shopify/products';
 
 interface Product {
   id: string;
@@ -16,11 +16,11 @@ interface Product {
 }
 
 export const MainProducts = async () => {
-  console.log(process.env.SHOPIFY_HOSTNAME);
-  const products = await getProducts();
+  console.log('Here', process.env.SHOPIFY_HOSTNAME);
+  const products = await getMainProducts();
   //const response = await fetch('http://localhost:3000/api');
   //const { products } = await response.json();
-  console.log(products);
+  console.log('Here', products);
   return (
     <section className={styles.MainProducts}>
       <h3>✨ New products released!</h3>

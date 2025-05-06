@@ -1,5 +1,7 @@
-import { getProducts } from '@/services/shopify';
+import { getProducts } from '@/services/shopify/products';
+import { getCollectionProducts, getCollections } from '@/services/shopify/collections';
 import { ProductsWrapper } from '@/components/Store/ProductsWrapper';
+import { CollectionType } from '@/types/collection';
 
 interface StoreCategoryPageProps {
   params: {
@@ -9,9 +11,19 @@ interface StoreCategoryPageProps {
 }
 
 async function StoreCategoryPage(props: StoreCategoryPageProps) {
-  const products = await getProducts();
-  const { categories = [] } = await props.params;
+  let products = [];
+  const collections = await getCollections();
+  const { categories = [] } = props.params;
   const searchParams = await Promise.resolve(props.searchParams);
+
+  if (categories.length > 0) {
+    const collection = collections.find(
+      (collection: CollectionType) => collection.handle === categories[0]
+    );
+    products = await getCollectionProducts(collection.id);
+  } else {
+    products = await getProducts();
+  }
 
   return (
     <div>

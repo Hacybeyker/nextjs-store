@@ -1,6 +1,7 @@
 import { shopifyUrls } from './urls';
 import { env } from '@/config/env';
 import { ProductType } from '@/types/product';
+import { ShopifyProduct } from '@/types/shopify';
 
 export const getProducts = async (id?: string): Promise<ProductType[]> => {
   const apiUrl = id ? `${shopifyUrls.products.all}?ids=${id}` : shopifyUrls.products.all;
@@ -9,9 +10,10 @@ export const getProducts = async (id?: string): Promise<ProductType[]> => {
       'X-Shopify-Access-Token': env.SHOPIFY_API_KEY,
     }),
   });
+
   const { products } = await response.json();
 
-  const transformedProducts = products.map((product: any) => {
+  const transformedProducts = products.map((product: ShopifyProduct) => {
     return {
       id: product.id,
       gql_id: product.variants[0].admin_graphql_api_id,

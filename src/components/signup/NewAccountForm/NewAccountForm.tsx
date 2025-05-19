@@ -7,18 +7,18 @@ export const NewAccountForm = () => {
   const [errors] = useState<string[]>([]);
   const [loading] = useState<boolean>(false);
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-    handleCreateUser(formData);
+    await handleCreateUser(formData);
   };
 
   return (
     <div className={styles.NewAccountForm}>
       <h1 className={styles.NewAccountForm__title}>New Account</h1>
       <form className={styles.NewAccountForm__form} onSubmit={handleSubmit}>
-        <input type="text" name="first_name" placeholder="Name" disabled={loading} />
-        <input type="text" name="last_name" placeholder="Lastname" disabled={loading} />
+        <input type="text" name="firstName" placeholder="Name" disabled={loading} />
+        <input type="text" name="lastName" placeholder="Lastname" disabled={loading} />
         <input
           type="text"
           name="email"

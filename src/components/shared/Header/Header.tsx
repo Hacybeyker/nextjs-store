@@ -1,6 +1,10 @@
 import Link from 'next/link';
 import styles from './Header.module.css';
-export const Header = () => {
+import { validateAccessToken } from '@/utils/auth/validateAccessToken';
+
+export const Header = async () => {
+  const customer = await validateAccessToken();
+  console.log('Header customer', customer?.firstName ? '' : 'no customer');
   return (
     <header>
       <nav>
@@ -21,6 +25,7 @@ export const Header = () => {
             <li>Test</li>
           </Link>
         </ul>
+        {customer?.firstName ? <p>Hola! {customer.firstName}</p> : <Link href="/login">Login</Link>}
       </nav>
     </header>
   );

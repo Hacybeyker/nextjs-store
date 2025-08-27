@@ -27,7 +27,7 @@ async function StoreCategoryPage(props: StoreCategoryPageProps) {
 
   return (
     <div>
-      {categories.length > 0 ? (
+      {/*       {categories.length > 0 ? (
         <div>Categoria dinamica: {categories.join('/')}</div>
       ) : (
         <div>Todas las categorias</div>
@@ -35,7 +35,7 @@ async function StoreCategoryPage(props: StoreCategoryPageProps) {
       <div>
         <h3>Parámetros de búsqueda:</h3>
         <pre>{JSON.stringify(searchParams, null, 2)}</pre>
-      </div>
+      </div> */}
       <ProductsWrapper products={products} />
     </div>
   );

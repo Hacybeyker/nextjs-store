@@ -11,7 +11,7 @@ type CustomerAccessTokenResponse = {
   };
 };
 
-export const createAccessToken = async (email: string, password: string) => {
+export const createAccessToken = async (email: string, password: string): Promise<string> => {
   const cookiesStore = await cookies();
   const graphqlClient = GraphQLClientSingleton.getInstance().getClient();
   const { customerAccessTokenCreate } = await graphqlClient.request<CustomerAccessTokenResponse>(
@@ -21,13 +21,19 @@ export const createAccessToken = async (email: string, password: string) => {
       password: password,
     }
   );
-  const { accessToken, expiresAt } = customerAccessTokenCreate?.customerAccessToken;
-  if (accessToken) {
+
+  const customerAccessToken = customerAccessTokenCreate?.customerAccessToken;
+  console.log('createAccessToken', customerAccessToken);
+  if (customerAccessToken && customerAccessToken.accessToken) {
+    const { accessToken, expiresAt } = customerAccessToken;
+
     cookiesStore.set('accessToken', accessToken, {
       path: '/',
       httpOnly: true,
       expires: new Date(expiresAt),
       sameSite: 'strict',
     });
+    return accessToken;
   }
+  return '';
 };

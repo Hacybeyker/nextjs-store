@@ -14,15 +14,19 @@ type CustomerNameResponse = {
 };
 
 export const validateAccessToken = async () => {
-  const cookiesStore = await cookies();
-  const accessToken = cookiesStore.get('accessToken')?.value || null;
-  if (!accessToken) {
-    // Si no hay accessToken, no hagas la petición y retorna null
-    return null;
+  try {
+    const cookiesStore = await cookies();
+    const accessToken = cookiesStore.get('accessToken')?.value || null;
+    if (!accessToken) {
+      // Si no hay accessToken, no hagas la petición y retorna null
+      return null;
+    }
+    const graphqlClient = GraphQLClientSingleton.getInstance().getClient();
+    const response = await graphqlClient.request<CustomerNameResponse>(customerName, {
+      customerAccessToken: accessToken,
+    });
+    return response.customer;
+  } catch (error) {
+    console.error(error);
   }
-  const graphqlClient = GraphQLClientSingleton.getInstance().getClient();
-  const response = await graphqlClient.request<CustomerNameResponse>(customerName, {
-    customerAccessToken: accessToken,
-  });
-  return response.customer;
 };

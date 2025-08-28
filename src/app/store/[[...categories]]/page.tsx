@@ -14,7 +14,7 @@ async function StoreCategoryPage(props: StoreCategoryPageProps) {
   let products = [];
   const collections = await getCollections();
   const { categories = [] } = props.params;
-  const searchParams = await Promise.resolve(props.searchParams);
+  //const searchParams = await Promise.resolve(props.searchParams);
 
   if (categories.length > 0) {
     const collection = collections.find(

@@ -12,7 +12,7 @@ const nextConfig: NextConfig = {
   },
   sassOptions: {
     includePaths: ['./src/sass'],
-    prependData: `@import "main.sass"`,
+    prependData: `@use "main.sass" as *;`,
   },
 };
 

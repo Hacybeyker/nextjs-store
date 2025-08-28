@@ -4,6 +4,7 @@ type Store = {
   cart: CartItem[];
   addToCart: (cartItem: CartItem) => void;
   removeCartItem: (cartItem: CartItem) => void;
+  initializeCart: () => void;
 };
 
 const saveArrayToLocalStorage = (array: CartItem[]) => {
@@ -11,18 +12,7 @@ const saveArrayToLocalStorage = (array: CartItem[]) => {
 };
 
 export const useShoppingCart = create<Store>()(set => ({
-  cart: (() => {
-    if (typeof window === 'undefined') {
-      return [];
-    }
-
-    const cart = localStorage.getItem('cart');
-    if (cart) {
-      return JSON.parse(cart);
-    }
-
-    return [];
-  })(),
+  cart: [],
   addToCart: (cartItem: CartItem) =>
     set(state => {
       const currentCart = state.cart;
@@ -48,5 +38,18 @@ export const useShoppingCart = create<Store>()(set => ({
       const newCart = currentCart.filter(item => item.id !== cartItem.id);
       saveArrayToLocalStorage(newCart);
       return { cart: newCart };
+    }),
+  initializeCart: () =>
+    set(() => {
+      if (typeof window === 'undefined') {
+        return { cart: [] };
+      }
+
+      const cart = localStorage.getItem('cart');
+      if (cart) {
+        return { cart: JSON.parse(cart) };
+      }
+
+      return { cart: [] };
     }),
 }));

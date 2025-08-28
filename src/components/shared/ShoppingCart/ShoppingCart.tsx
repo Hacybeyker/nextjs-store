@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FaShoppingCart } from 'react-icons/fa';
 import { useShoppingCart } from '@/hooks/useShoppingCart';
 import { handleCreateCart } from '@/actions';
@@ -7,10 +7,14 @@ import { ShoppingCartItem } from './ShoppingCartItem';
 import styles from './ShoppingCart.module.sass';
 
 export default function ShoppingCart() {
-  const { cart } = useShoppingCart();
+  const { cart, initializeCart } = useShoppingCart();
   const [isBuying, setIsBuying] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const hasItems = cart.length > 0;
+
+  useEffect(() => {
+    initializeCart();
+  }, [initializeCart]);
 
   const handleOpen = () => {
     if (hasItems) {

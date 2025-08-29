@@ -11,6 +11,9 @@
     "format:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\""
   },
   "dependencies": {
+    "@ai-sdk/openai": "^2.0.22",
+    "@ai-sdk/react": "^2.0.27",
+    "ai": "^5.0.27",
     "classnames": "^2.5.1",
     "graphql": "^16.11.0",
     "graphql-request": "^7.1.2",

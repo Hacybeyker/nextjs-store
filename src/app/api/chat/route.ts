@@ -10,7 +10,7 @@ export async function POST(req: Request) {
 
   // Ask OpenAI for a streaming chat completion given the prompt
   const result = await streamText({
-    model: openai('gpt-4o-mini'),
+    model: openai('gpt-4.1-nano'),
     messages,
   });
 

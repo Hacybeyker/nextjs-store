@@ -4,16 +4,16 @@ import { ProductsWrapper } from '@/components/Store/ProductsWrapper';
 import { CollectionType } from '@/types/collection';
 
 interface StoreCategoryPageProps {
-  params: {
+  params: Promise<{
     categories?: string[];
-  };
-  searchParams: { [key: string]: string | string[] | undefined };
+  }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
 async function StoreCategoryPage(props: StoreCategoryPageProps) {
   let products = [];
   const collections = await getCollections();
-  const { categories = [] } = props.params;
+  const { categories = [] } = await props.params;
   //const searchParams = await Promise.resolve(props.searchParams);
 
   if (categories.length > 0) {

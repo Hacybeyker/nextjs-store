@@ -2,16 +2,16 @@ import { getProducts } from '@/services/shopify/products';
 import { ProductView } from '@/components/product/ProductView/ProductView';
 
 interface ProductPageProps {
-  params: {
+  params: Promise<{
     handle: string;
-  };
-  searchParams: {
+  }>;
+  searchParams: Promise<{
     id: string;
-  };
+  }>;
 }
 
 export async function generateMetadata({ searchParams }: ProductPageProps) {
-  const { id } = await Promise.resolve(searchParams);
+  const { id } = await searchParams;
   const products = await getProducts(id);
   const product = products[0];
   return {
@@ -27,7 +27,7 @@ export async function generateMetadata({ searchParams }: ProductPageProps) {
 }
 
 async function ProductPage(props: ProductPageProps) {
-  const { id } = await Promise.resolve(props.searchParams);
+  const { id } = await props.searchParams;
   const products = await getProducts(id);
   const product = products[0];
 

@@ -5,12 +5,13 @@ import styles from './Chat.module.sass';
 
 interface Message {
   id: string;
-  role: 'user' | 'assistant';
+  role: 'user' | 'assistant' | 'system';
   content: string;
 }
 
-export const Chat = () => {
-  const [messages, setMessages] = useState<Message[]>([]);
+export const Chat = (props: { agent: string }) => {
+  const initialMessages: Message[] = [{ id: '1', role: 'system', content: props.agent }];
+  const [messages, setMessages] = useState<Message[]>(initialMessages);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
@@ -81,19 +82,23 @@ export const Chat = () => {
   return (
     <main className={styles.Chat}>
       <section>
-        {messages.map(m => (
-          <div key={m.id}>
-            <strong>{m.role === 'user' ? 'User: ' : 'AI: '}</strong>
-            <span>{m.content}</span>
-          </div>
-        ))}
+        {messages
+          .filter(m => m.role !== 'system')
+          .map(m => (
+            <div key={m.id}>
+              <strong>{m.role === 'user' ? 'User: ' : 'AI: '}</strong>
+              <span>{m.content}</span>
+            </div>
+          ))}
         {isLoading && (
           <div className="mb-4">
             <strong>AI: </strong>
             <span>Thinking...</span>
           </div>
         )}
-        {messages.length === 0 && <div>Start a conversation with the AI!</div>}
+        {messages.filter(m => m.role !== 'system').length === 0 && (
+          <div>Start a conversation with the AI!</div>
+        )}
       </section>
       <form onSubmit={handleSubmit}>
         <input

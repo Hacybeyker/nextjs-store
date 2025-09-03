@@ -1,6 +1,9 @@
 import { validateAccessToken } from '@/utils/auth/validateAccessToken';
 import { redirect } from 'next/navigation';
 
+// Força dynamic rendering para esta página que requiere autenticación
+export const dynamic = 'force-dynamic';
+
 export default async function MyAccountPage() {
   const customer = await validateAccessToken();
 

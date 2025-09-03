@@ -16,11 +16,7 @@ interface Product {
 }
 
 export const MainProducts = async () => {
-  //console.log('Here', process.env.SHOPIFY_HOSTNAME);
   const products = await getMainProducts();
-  //const response = await fetch('http://localhost:3000/api');
-  //const { products } = await response.json();
-  //console.log('Here', products);
   return (
     <section className={styles.MainProducts}>
       <h3>✨ New products released!</h3>

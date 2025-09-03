@@ -36,8 +36,6 @@ export const handleCreateUser = async (formData: FormData) => {
     variables
   );
   const { customer } = customerCreate;
-  console.log('handleCreateUser', formData);
-  console.log('data', customer);
   if (customer?.firstName) {
     await createAccessToken(formDataObject.email as string, formDataObject.password as string);
     redirect('/store');
@@ -50,7 +48,6 @@ export const handleLogin = async (formData: FormData) => {
     formDataObject.email as string,
     formDataObject.password as string
   );
-  console.log('accesToken', accesToken);
   if (accesToken) {
     redirect('/store');
   }

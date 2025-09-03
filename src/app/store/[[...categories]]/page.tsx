@@ -20,7 +20,13 @@ async function StoreCategoryPage(props: StoreCategoryPageProps) {
     const collection = collections.find(
       (collection: CollectionType) => collection.handle === categories[0]
     );
-    products = await getCollectionProducts(collection.id);
+
+    if (collection) {
+      products = await getCollectionProducts(collection.id);
+    } else {
+      // Si no se encuentra la colección, mostrar todos los productos
+      products = await getProducts();
+    }
   } else {
     products = await getProducts();
   }

@@ -13,12 +13,14 @@ interface StoreCategoryPageProps {
 async function StoreCategoryPage(props: StoreCategoryPageProps) {
   let products = [];
   const collections = await getCollections();
-  const { categories = [] } = await props.params;
-  //const searchParams = await Promise.resolve(props.searchParams);
+  const searchParams = await props.searchParams;
 
-  if (categories.length > 0) {
+  // Obtener categoría desde searchParams
+  const categoryHandle = searchParams.category as string;
+
+  if (categoryHandle) {
     const collection = collections.find(
-      (collection: CollectionType) => collection.handle === categories[0]
+      (collection: CollectionType) => collection.handle === categoryHandle
     );
 
     if (collection) {
@@ -28,23 +30,11 @@ async function StoreCategoryPage(props: StoreCategoryPageProps) {
       products = await getProducts();
     }
   } else {
+    // Si no hay categoría, mostrar todos los productos
     products = await getProducts();
   }
 
-  return (
-    <div>
-      {/*       {categories.length > 0 ? (
-        <div>Categoria dinamica: {categories.join('/')}</div>
-      ) : (
-        <div>Todas las categorias</div>
-      )}
-      <div>
-        <h3>Parámetros de búsqueda:</h3>
-        <pre>{JSON.stringify(searchParams, null, 2)}</pre>
-      </div> */}
-      <ProductsWrapper products={products} />
-    </div>
-  );
+  return <ProductsWrapper products={products} />;
 }
 
 export default StoreCategoryPage;

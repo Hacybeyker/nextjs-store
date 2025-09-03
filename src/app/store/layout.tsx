@@ -6,17 +6,22 @@ import styles from './StoreLayout.module.sass';
 export const runtime = 'edge';
 
 export default async function Layout({ children }: { children: React.ReactNode }) {
-  console.log('variable de entorno: ', process.env.NEXT_PUBLIC_SHOPIFY_HOSTNAME);
   const collections = await getCollections();
   return (
     <main className={styles.StoreLayout}>
       <h1>Explore</h1>
       <nav>
         <ul className={styles.StoreLayout__list}>
+          <Link
+            href="/store"
+            className={styles.StoreLayout__chip}
+          >
+            Todos los productos
+          </Link>
           {collections.map((collection: CollectionType) => (
             <Link
               key={collection.id}
-              href={'/store/' + collection.handle}
+              href={`/store?category=${collection.handle}`}
               className={styles.StoreLayout__chip}
             >
               {collection.title}

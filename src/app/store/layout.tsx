@@ -3,6 +3,8 @@ import Link from 'next/link';
 import { CollectionType } from '@/types/collection';
 import styles from './StoreLayout.module.sass';
 
+export const runtime = 'edge';
+
 export default async function Layout({ children }: { children: React.ReactNode }) {
   console.log('variable de entorno: ', process.env.NEXT_PUBLIC_SHOPIFY_HOSTNAME);
   const collections = await getCollections();

@@ -12,10 +12,7 @@ export default async function Layout({ children }: { children: React.ReactNode }
       <h1>Explore</h1>
       <nav>
         <ul className={styles.StoreLayout__list}>
-          <Link
-            href="/store"
-            className={styles.StoreLayout__chip}
-          >
+          <Link href="/store" className={styles.StoreLayout__chip}>
             Todos los productos
           </Link>
           {collections.map((collection: CollectionType) => (

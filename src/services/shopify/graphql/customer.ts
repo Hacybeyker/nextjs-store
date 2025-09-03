@@ -1,19 +1,20 @@
 import { GraphQLClientSingleton } from '@/graphql';
 import { getOrdersQuery } from '@/graphql/queries/getOrders';
 import { cookies } from 'next/headers';
+import type { CustomerOrdersResponse, GraphQLOrdersResponse } from '@/types/orders';
 
-export const getCustomerOrders = async () => {
-  const cookiesStorage = cookies();
+export const getCustomerOrders = async (): Promise<CustomerOrdersResponse> => {
+  const cookiesStorage = await cookies();
   const accessToken = cookiesStorage.get('accessToken')?.value || '';
   const graphqlClient = GraphQLClientSingleton.getInstance().getClient();
   const variables = {
     customerAccessToken: accessToken,
   };
 
-  const { customer } = await graphqlClient.request(getOrdersQuery, variables);
-  const orders = customer?.orders?.edges.map((edge: any) => edge.node);
+  const response = await graphqlClient.request<GraphQLOrdersResponse>(getOrdersQuery, variables);
+  const orders = response.customer?.orders?.edges.map((edge) => edge.node) || [];
   return {
-    totalOrders: customer?.orders?.totalCount,
+    totalOrders: response.customer?.orders?.totalCount || 0,
     orders,
   };
 };

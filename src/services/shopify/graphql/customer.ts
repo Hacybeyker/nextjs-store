@@ -12,7 +12,7 @@ export const getCustomerOrders = async (): Promise<CustomerOrdersResponse> => {
   };
 
   const response = await graphqlClient.request<GraphQLOrdersResponse>(getOrdersQuery, variables);
-  const orders = response.customer?.orders?.edges.map((edge) => edge.node) || [];
+  const orders = response.customer?.orders?.edges.map(edge => edge.node) || [];
   return {
     totalOrders: response.customer?.orders?.totalCount || 0,
     orders,

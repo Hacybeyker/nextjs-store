@@ -42,11 +42,7 @@ export const UserSection = () => {
 
   return (
     <>
-      {customer?.firstName ? (
-        <p>Hola! {customer.firstName}</p>
-      ) : (
-        <Link href="/login">Login</Link>
-      )}
+      {customer?.firstName ? <p>Hola! {customer.firstName}</p> : <Link href="/login">Login</Link>}
     </>
   );
 };

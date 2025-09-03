@@ -6,7 +6,7 @@ export const dynamic = 'force-dynamic';
 
 export default async function MyAccountPage() {
   const ordersInfo = await getCustomerOrders();
-  
+
   return (
     <div>
       <section>
